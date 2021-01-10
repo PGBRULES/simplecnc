@@ -1,7 +1,7 @@
-# Build your own Botnet
-Build your own botnet is my take on malwaredllc/byob, albeit with less features and a lower virus detection rate. 
+# Simple Command and Control Interface
+  
 Credits:
-github.com/Technowlogy-Pushpender - Crypter
+https://stackoverflow.com/a/4017219
 3rd Party Libraries utilized:
 Discord.py
-Speedtest-Cli
+
