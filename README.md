@@ -4,7 +4,7 @@
   - Discord Account, Server and 2 Seperate text channels in that server(Must have the ID of the text channels)
   - Discord Bot Token(This bot must be added to the aforementioned server)
   - *For assistance with the discord parts, please don't hesitate to reach out to us at our support discord.* 
-  - PyInstaller
+  - PyInstaller(With UPX if you'd like)
   - Python 3.9 or Higher
   - Basic apache webserver(self hosted(must be publicly accessible) or a vps)
 ## Instructions
